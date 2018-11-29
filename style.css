@@ -1,0 +1,17 @@
+main {
+  display: flex;
+}
+content {
+  border: 1px black solid;
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+}
+aside {
+  border: 1px black solid;
+  width: 25%;
+}
+content div {
+  width: 50%;
+  text-align: center;
+}
