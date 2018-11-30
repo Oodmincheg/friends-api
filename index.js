@@ -51,11 +51,24 @@ const addSortByName = workList => {
     drawArrayOfFreinds(workList.sort((a, b) => asc(a.name.first, b.name.first)))
   );
 };
+
+const addSortByAge = workList => {
+  let buttonSortByAgeDesc = document.getElementById("sortByAgeDesc");
+  buttonSortByAgeDesc.addEventListener("click", () =>
+    drawArrayOfFreinds(workList.sort((a, b) => desc(a.dob.age, b.dob.age)))
+  );
+  let buttonSortByAgeAsc = document.getElementById("sortByAgeAsc");
+  buttonSortByAgeAsc.addEventListener("click", () =>
+    drawArrayOfFreinds(workList.sort((a, b) => asc(a.dob.age, b.dob.age)))
+  );
+};
+
 const display = originArray => {
   console.log("draw");
   const workList = [...originArray];
   drawArrayOfFreinds(originArray);
   addSortByName(workList);
+  addSortByAge(workList);
   let reset = document.getElementById("reset");
   reset.addEventListener("click", () => drawArrayOfFreinds(originArray));
 };
