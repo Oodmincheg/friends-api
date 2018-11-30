@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script:700" rel="stylesheet">
     <title>Lonely souls</title>
   </head>
   <body>
-    <header>My friends</header>
+    <header>
+      <h1>Lonely souls.</h1>
+      <h2>We so lonely that wanna get better with random parnter. Really.</h2>
+    </header>
     <main>
       <aside>
-        <button id="sortByName">Sort</button><br />
+        <form class="sort">Sort by name <br>
+          <input type="radio" name="sortByName" id="sortByNameDesc">Descending</input>
+          <input type="radio" name="sortByName" id="sortByNameAsc">Asdending</input>
+        </form>
+        <form class="sort">Sort by age <br>
+          <input type="radio" name="sortByAge" id="sortByAgeDesc">Descending</input>
+          <input type="radio" name="sortByAge" id="sortByAgeAsc">Asdending</input>
+        </form>
+
         <button id="reset">Reset</button>
       </aside>
       <content id="content"> </content>

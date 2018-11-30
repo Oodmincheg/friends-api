@@ -1,17 +1,62 @@
+html {
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+header {
+  background-color: #ffde03;
+  font-family: "Dancing Script", cursive;
+  color: #0336ff;
+  text-align: center;
+}
+h1 {
+  font-size: 80px;
+  margin: 0 auto;
+}
+h2 {
+  margin-top: 0;
+  margin-bottom: 2%;
+}
 main {
+  max-width: 1400px;
   display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
 }
 content {
-  border: 1px black solid;
-  width: 75%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
 }
 aside {
-  border: 1px black solid;
   width: 25%;
 }
-content div {
-  width: 50%;
+content figure {
+  font-family: "Dancing Script", cursive;
+  font-size: 22px;
+  border: 1px solid #0336ff;
+  border-radius: 30%;
+  width: 35%;
   text-align: center;
+}
+figcaption {
+  padding: 0 20px 20px 20px;
+}
+img {
+  border-radius: 30%;
+  margin: 20px auto;
+}
+
+.sort {
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 50%;
+  margin: 5%;
+  text-align: center;
+  background-color: #ffde03;
 }

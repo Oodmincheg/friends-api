@@ -1,37 +1,61 @@
 const url = "https://randomuser.me/api/?results=10";
 const futureData = fetch(url);
-let workList;
+//let workList;
+
+function createCardOfFreind(friend) {
+  let friendProfile = document.createElement("figure");
+  let image = document.createElement("img");
+  image.setAttribute("src", friend.picture.large);
+  let caption = document.createElement("figcaption");
+  //prettier-ignore
+  caption.textContent = `${upFirstLetter(friend.name.first)} ${upFirstLetter(friend.name.last)}, age ${friend.dob.age}`;
+  friendProfile.append(image, caption);
+  return friendProfile;
+}
 
 function drawArrayOfFreinds(arrayOfFreinds) {
   let content = document.getElementById("content");
   content.innerHTML = "";
   arrayOfFreinds.forEach(friend => {
-    let friendProfile = document.createElement("div");
-    let image = document.createElement("img");
-    image.setAttribute("src", friend.picture.medium);
-    let par = document.createElement("p");
-    par.textContent = `${friend.name.first} ${friend.name.last}`;
-    friendProfile.append(par, image);
-    content.append(friendProfile);
+    content.append(createCardOfFreind(friend));
   });
 }
+const desc = (a, b) => {
+  if (a < b) {
+    return -1;
+  } else {
+    return 1;
+  }
+};
 
-const display = originArray => {
-  console.log("draw");
-  workList = [...originArray];
-  drawArrayOfFreinds(originArray);
-  let sortingByName = document.getElementById("sortByName");
-  sortingByName.addEventListener("click", () =>
+const asc = (a, b) => {
+  if (a < b) {
+    return 1;
+  } else {
+    return -1;
+  }
+};
+
+function upFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+const addSortByName = workList => {
+  let buttonSortByNameDesc = document.getElementById("sortByNameDesc");
+  buttonSortByNameDesc.addEventListener("click", () =>
     drawArrayOfFreinds(
-      workList.sort((a, b) => {
-        if (a.name.first < b.name.first) {
-          return -1;
-        } else {
-          return 1;
-        }
-      })
+      workList.sort((a, b) => desc(a.name.first, b.name.first))
     )
   );
+  let buttonSortByNameAsc = document.getElementById("sortByNameAsc");
+  buttonSortByNameAsc.addEventListener("click", () =>
+    drawArrayOfFreinds(workList.sort((a, b) => asc(a.name.first, b.name.first)))
+  );
+};
+const display = originArray => {
+  console.log("draw");
+  const workList = [...originArray];
+  drawArrayOfFreinds(originArray);
+  addSortByName(workList);
   let reset = document.getElementById("reset");
   reset.addEventListener("click", () => drawArrayOfFreinds(originArray));
 };
