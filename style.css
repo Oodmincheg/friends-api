@@ -28,14 +28,17 @@ main {
   justify-content: space-between;
 }
 content {
-  width: 80%;
+  width: 89%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 aside {
   text-align: center;
-  width: 20%;
+  width: 10%;
+}
+aside div {
+  margin: 10px;
 }
 content figure {
   font-family: "Dancing Script", cursive;
@@ -54,17 +57,16 @@ img {
 }
 
 .sort {
-  border: 1px solid #0336ff;
   font-weight: bold;
   padding: 10px;
-  margin: 5%;
+  /*margin: 5%;*/
   text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
-  .sort {
+  /*.sort {
     display: none;
-  }
+  }*/
   main {
     flex-direction: column;
     align-items: center;

@@ -1,4 +1,4 @@
-const url = "https://randomuser.me/api/?results=5";
+const url = "https://randomuser.me/api/?results=40";
 const getFriends = fetch(url);
 //let workList;
 
@@ -51,6 +51,9 @@ const resetSortButtons = () => {
     .getElementsByName("sortBy")
     .forEach(radio => (radio.checked = false));
 };
+const resetSearchInput = () => {
+  document.getElementById("searchByName").value = "";
+};
 const display = originArray => {
   let workList = [...originArray];
   drawArrayOfFreinds(originArray);
@@ -79,6 +82,7 @@ const display = originArray => {
   });
   let reset = document.getElementById("reset");
   reset.addEventListener("click", () => {
+    resetSearchInput();
     resetSortButtons();
     drawArrayOfFreinds(originArray);
   });

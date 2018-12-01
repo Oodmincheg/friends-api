@@ -16,20 +16,22 @@
     </header>
     <main>
       <aside>
-        <div class="sort">Sort by name <br>
-          <input type="radio" name="sortBy" id="sortByNameDesc">Descending</input>
-          <input type="radio" name="sortBy" id="sortByNameAsc">Asdending</input>
+        <div class="sort">Sort by name: 
+          <input type="radio" name="sortBy" id="sortByNameDesc">↓</input>
+          <input type="radio" name="sortBy" id="sortByNameAsc">↑</input>
         </div>
-        <div class="sort">Sort by age <br>
-          <input type="radio" name="sortBy" id="sortByAgeDesc">Descending</input>
-          <input type="radio" name="sortBy" id="sortByAgeAsc">Asdending</input>
+        <div class="sort">Sort by age:
+          <input type="radio" name="sortBy" id="sortByAgeDesc">↓</input>
+          <input type="radio" name="sortBy" id="sortByAgeAsc">↑</input>
         </div>
         <div class="search">
-          <input type="text" placeholder="Search.." name="search" id="searchByName" size="10">
+          <input type="text" placeholder="Search..." name="search" id="searchByName" size="18">
           <i class="fa fa-search"></i>
-          <button id="reset">Reset All</button>
+          
         </div>
-        
+        <div class="reset">
+          <button id="reset">Reset All</button>
+       </div>
       </aside>
       <content id="content"> </content>
     </main>
