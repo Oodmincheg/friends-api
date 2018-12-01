@@ -1,4 +1,4 @@
-const url = "https://randomuser.me/api/?results=10";
+const url = "https://randomuser.me/api/?results=5";
 const futureData = fetch(url);
 //let workList;
 
@@ -42,9 +42,8 @@ function upFirstLetter(string) {
 const addSortByName = workList => {
   let buttonSortByNameDesc = document.getElementById("sortByNameDesc");
   buttonSortByNameDesc.addEventListener("click", () =>
-    drawArrayOfFreinds(
-      workList.sort((a, b) => desc(a.name.first, b.name.first))
-    )
+    //prettier-ignore
+    drawArrayOfFreinds(workList.sort((a, b) => desc(a.name.first, b.name.first)))
   );
   let buttonSortByNameAsc = document.getElementById("sortByNameAsc");
   buttonSortByNameAsc.addEventListener("click", () =>
@@ -62,13 +61,25 @@ const addSortByAge = workList => {
     drawArrayOfFreinds(workList.sort((a, b) => asc(a.dob.age, b.dob.age)))
   );
 };
-
+const filterByString = (workList, string) => {
+  workList = workList.filter(friend =>
+    `${friend.name.first} ${friend.name.last}`.includes(string)
+  );
+  return workList;
+};
+const addSearchByName = workList => {
+  let inputSearchByName = document.getElementById("searchByName");
+  inputSearchByName.addEventListener("input", event => {
+    workList = filterByString(workList, event.target.value);
+    drawArrayOfFreinds(workList);
+  });
+};
 const display = originArray => {
-  console.log("draw");
   const workList = [...originArray];
   drawArrayOfFreinds(originArray);
   addSortByName(workList);
   addSortByAge(workList);
+  addSearchByName(workList);
   let reset = document.getElementById("reset");
   reset.addEventListener("click", () => drawArrayOfFreinds(originArray));
 };

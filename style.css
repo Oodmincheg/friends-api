@@ -1,6 +1,5 @@
 html {
   box-sizing: border-box;
-  margin: 0 auto;
 }
 *,
 *:before,
@@ -23,7 +22,7 @@ h2 {
   margin-bottom: 2%;
 }
 main {
-  max-width: 1400px;
+  /*max-width: 1400px;*/
   display: flex;
   margin: 0 auto;
   justify-content: space-between;
@@ -32,16 +31,18 @@ content {
   width: 80%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 aside {
-  width: 25%;
+  text-align: center;
+  width: 20%;
 }
 content figure {
   font-family: "Dancing Script", cursive;
   font-size: 22px;
-  border: 1px solid #0336ff;
+  /*border: 1px solid #0336ff;*/
   border-radius: 30%;
-  width: 35%;
+  width: 20%;
   text-align: center;
 }
 figcaption {
@@ -53,10 +54,33 @@ img {
 }
 
 .sort {
+  border: 1px solid #0336ff;
   font-weight: bold;
   padding: 10px;
-  border-radius: 50%;
   margin: 5%;
   text-align: center;
-  background-color: #ffde03;
+}
+
+@media only screen and (max-width: 600px) {
+  .sort {
+    display: none;
+  }
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+  aside {
+    width: 100%;
+  }
+
+  content figure {
+    width: 100%;
+    margin: 20px auto;
+  }
+  img {
+    margin: 0 auto;
+  }
+  figcaption {
+    padding: 0;
+  }
 }
