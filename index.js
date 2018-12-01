@@ -1,6 +1,5 @@
 const url = "https://randomuser.me/api/?results=40";
 const getFriends = fetch(url);
-//let workList;
 
 const createCardOfFreind = friend => {
   let friendProfile = document.createElement("figure");
@@ -13,7 +12,7 @@ const createCardOfFreind = friend => {
   return friendProfile;
 };
 
-const drawArrayOfFreinds = arrayOfFreinds => {
+const renderListOfFriends = arrayOfFreinds => {
   let content = document.getElementById("content");
   content.innerHTML = "";
   arrayOfFreinds.forEach(friend => {
@@ -46,46 +45,50 @@ const filterByString = (workList, string) => {
     `${friend.name.first} ${friend.name.last}`.includes(string)
   );
 };
+
 const resetSortButtons = () => {
   document
     .getElementsByName("sortBy")
     .forEach(radio => (radio.checked = false));
 };
+
 const resetSearchInput = () => {
   document.getElementById("searchByName").value = "";
 };
 
 const renderPageWithListeners = originList => {
   let workList = [...originList];
-  drawArrayOfFreinds(originList);
+  renderListOfFriends(originList);
   let buttonSortByNameDesc = document.getElementById("sortByNameDesc");
   buttonSortByNameDesc.addEventListener("click", () =>
     //prettier-ignore
-    drawArrayOfFreinds(workList.sort((a, b) => desc(a.name.first, b.name.first)))
+    renderListOfFriends(workList.sort((a, b) => desc(a.name.first, b.name.first)))
   );
   let buttonSortByNameAsc = document.getElementById("sortByNameAsc");
   buttonSortByNameAsc.addEventListener("click", () =>
-    drawArrayOfFreinds(workList.sort((a, b) => asc(a.name.first, b.name.first)))
+    renderListOfFriends(
+      workList.sort((a, b) => asc(a.name.first, b.name.first))
+    )
   );
   let buttonSortByAgeDesc = document.getElementById("sortByAgeDesc");
   buttonSortByAgeDesc.addEventListener("click", () =>
-    drawArrayOfFreinds(workList.sort((a, b) => desc(a.dob.age, b.dob.age)))
+    renderListOfFriends(workList.sort((a, b) => desc(a.dob.age, b.dob.age)))
   );
   let buttonSortByAgeAsc = document.getElementById("sortByAgeAsc");
   buttonSortByAgeAsc.addEventListener("click", () =>
-    drawArrayOfFreinds(workList.sort((a, b) => asc(a.dob.age, b.dob.age)))
+    renderListOfFriends(workList.sort((a, b) => asc(a.dob.age, b.dob.age)))
   );
   let inputSearchByName = document.getElementById("searchByName");
   inputSearchByName.addEventListener("input", event => {
     resetSortButtons();
     workList = filterByString(originList, event.target.value);
-    drawArrayOfFreinds(workList);
+    renderListOfFriends(workList);
   });
   let resetButton = document.getElementById("reset");
   resetButton.addEventListener("click", () => {
     resetSearchInput();
     resetSortButtons();
-    drawArrayOfFreinds(originList);
+    renderListOfFriends(originList);
   });
 };
 
