@@ -54,9 +54,10 @@ const resetSortButtons = () => {
 const resetSearchInput = () => {
   document.getElementById("searchByName").value = "";
 };
-const display = originArray => {
-  let workList = [...originArray];
-  drawArrayOfFreinds(originArray);
+
+const renderPageWithListeners = originList => {
+  let workList = [...originList];
+  drawArrayOfFreinds(originList);
   let buttonSortByNameDesc = document.getElementById("sortByNameDesc");
   buttonSortByNameDesc.addEventListener("click", () =>
     //prettier-ignore
@@ -77,19 +78,19 @@ const display = originArray => {
   let inputSearchByName = document.getElementById("searchByName");
   inputSearchByName.addEventListener("input", event => {
     resetSortButtons();
-    workList = filterByString(originArray, event.target.value);
+    workList = filterByString(originList, event.target.value);
     drawArrayOfFreinds(workList);
   });
-  let reset = document.getElementById("reset");
-  reset.addEventListener("click", () => {
+  let resetButton = document.getElementById("reset");
+  resetButton.addEventListener("click", () => {
     resetSearchInput();
     resetSortButtons();
-    drawArrayOfFreinds(originArray);
+    drawArrayOfFreinds(originList);
   });
 };
 
 getFriends
   .then(response => response.json())
   .then(data => {
-    display(data.results);
+    renderPageWithListeners(data.results);
   });
