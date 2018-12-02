@@ -7,11 +7,14 @@ const createCardOfFreind = friend => {
   image.setAttribute("src", friend.picture.large);
   const caption = document.createElement("figcaption");
   //prettier-ignore
-  caption.textContent = `${upFirstconstter(friend.name.first)} ${upFirstconstter(friend.name.last)}, age ${friend.dob.age}`;
+  let name  = document.createElement("p")
+  name.textContent = `${friend.name.first} ${friend.name.last}`;
+  let age = document.createElement("p");
+  age.textContent = `age ${friend.dob.age}`;
   let email = document.createElement("a");
   let br = document.createElement("br");
   email.textContent = `${friend.email}`;
-  caption.append(br, email);
+  caption.append(name, age, email);
   friendProfile.append(image, caption);
   return friendProfile;
 };
@@ -38,10 +41,6 @@ const asc = (a, b) => {
   } else {
     return 1;
   }
-};
-
-const upFirstconstter = string => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 const filterByString = (workList, string) => {
