@@ -85,13 +85,17 @@ const renderPageWithListeners = originList => {
   );
   const buttonSortByMale = document.getElementById("sortByMale");
   buttonSortByMale.addEventListener("change", () => {
-    workList = originList.filter(friend => friend.gender === "male");
-    renderListOfFriends(workList);
+    renderListOfFriends(originList.filter(friend => friend.gender === "male"));
   });
   const buttonSortByFemale = document.getElementById("sortByFemale");
   buttonSortByFemale.addEventListener("change", () => {
-    workList = originList.filter(friend => friend.gender === "female");
-    renderListOfFriends(workList);
+    renderListOfFriends(
+      originList.filter(friend => friend.gender === "female")
+    );
+  });
+  const buttonBothSexes = document.getElementById("bothSexes");
+  buttonBothSexes.addEventListener("change", () => {
+    renderListOfFriends(originList);
   });
 
   const inputSearchByName = document.getElementById("searchByName");
