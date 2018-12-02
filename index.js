@@ -65,12 +65,12 @@ const renderPageWithListeners = originList => {
   let workList = [...originList];
   renderListOfFriends(originList);
   const buttonSortByNameDesc = document.getElementById("sortByNameDesc");
-  buttonSortByNameDesc.addEventListener("click", () =>
+  buttonSortByNameDesc.addEventListener("change", () =>
     //prettier-ignore
     renderListOfFriends(workList.sort((a, b) => desc(a.name.first, b.name.first)))
   );
   const buttonSortByNameAsc = document.getElementById("sortByNameAsc");
-  buttonSortByNameAsc.addEventListener("click", () =>
+  buttonSortByNameAsc.addEventListener("change", () =>
     renderListOfFriends(
       workList.sort((a, b) => asc(a.name.first, b.name.first))
     )
