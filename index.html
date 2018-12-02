@@ -16,22 +16,28 @@
     </header>
     <main>
       <aside>
-        <form class="sort">Sort by name: 
-          <input type="radio" name="sortBy" id="sortByNameDesc">↓</input>
-          <input type="radio" name="sortBy" id="sortByNameAsc">↑</input>
-        </form>
-        <form class="sort">Sort by age:
-          <input type="radio" name="sortBy" id="sortByAgeDesc">↓</input>
-          <input type="radio" name="sortBy" id="sortByAgeAsc">↑</input>
-        </form>
+          
         <form class="search">
           <input type="text" placeholder="Search..." name="search" id="searchByName" size="18">
           <i class="fa fa-search"></i>
-          
         </form>
-        <form class="reset">
+        <div class="sort"><span>By sex:</span>
+          <input type="radio" name="sortBySex" id="sortByMale">M</input>
+          <input type="radio" name="sortBySex" id="sortByFemale">F</input>
+          <input type="radio" name="sortBySex" id="bothSexes" checked="checked">Both</input>
+        </div>
+        <div class="sort"><span>By name:</span> 
+          <input type="radio" name="sortBy" id="sortByNameAsc">↑</input>
+          <input type="radio" name="sortBy" id="sortByNameDesc">↓</input>
+        </div>
+        <div class="sort"><span></span>By age:</span>
+          <input type="radio" name="sortBy" id="sortByAgeAsc">↑</input>
+          <input type="radio" name="sortBy" id="sortByAgeDesc">↓</input>
+        </div>
+       
+        <div class="reset">
           <button id="reset">Reset All</button>
-       </form>
+        </div>
       </aside>
       <content id="content"> </content>
     </main>

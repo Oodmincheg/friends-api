@@ -28,14 +28,14 @@ main {
   justify-content: space-between;
 }
 content {
-  width: 85%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 aside {
   text-align: center;
-  width: 15%;
+  width: 20%;
 }
 aside form {
   margin: 10px;
@@ -62,7 +62,10 @@ img {
   /*margin: 5%;*/
   text-align: center;
 }
-
+a {
+  font-size: 14px;
+  font-family: "Courier New", Courier, monospace;
+}
 @media only screen and (max-width: 600px) {
   h1 {
     font-size: 60px;
@@ -88,7 +91,7 @@ img {
   figcaption {
     padding: 0;
   }
-  aside form {
+  aside span {
     margin: 5px;
     font-size: 14px;
   }

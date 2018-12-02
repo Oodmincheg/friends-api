@@ -1,19 +1,23 @@
-const url = "https://randomuser.me/api/?results=40";
-const getFriends = fetch(url);
+const URL_FRIENDS_API = "https://randomuser.me/api/?results=40";
+const getFriends = fetch(URL_FRIENDS_API);
 
 const createCardOfFreind = friend => {
-  let friendProfile = document.createElement("figure");
-  let image = document.createElement("img");
+  const friendProfile = document.createElement("figure");
+  const image = document.createElement("img");
   image.setAttribute("src", friend.picture.large);
-  let caption = document.createElement("figcaption");
+  const caption = document.createElement("figcaption");
   //prettier-ignore
-  caption.textContent = `${upFirstLetter(friend.name.first)} ${upFirstLetter(friend.name.last)}, age ${friend.dob.age}`;
+  caption.textContent = `${upFirstconstter(friend.name.first)} ${upFirstconstter(friend.name.last)}, age ${friend.dob.age}`;
+  let email = document.createElement("a");
+  let br = document.createElement("br");
+  email.textContent = `${friend.email}`;
+  caption.append(br, email);
   friendProfile.append(image, caption);
   return friendProfile;
 };
 
 const renderListOfFriends = arrayOfFreinds => {
-  let content = document.getElementById("content");
+  const content = document.getElementById("content");
   content.innerHTML = "";
   arrayOfFreinds.forEach(friend => {
     content.append(createCardOfFreind(friend));
@@ -22,34 +26,35 @@ const renderListOfFriends = arrayOfFreinds => {
 
 const desc = (a, b) => {
   if (a < b) {
-    return -1;
-  } else {
     return 1;
+  } else {
+    return -1;
   }
 };
 
 const asc = (a, b) => {
   if (a < b) {
-    return 1;
-  } else {
     return -1;
+  } else {
+    return 1;
   }
 };
 
-const upFirstLetter = string => {
+const upFirstconstter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 const filterByString = (workList, string) => {
   return workList.filter(friend =>
-    `${friend.name.first} ${friend.name.last}`.includes(string)
+    `${friend.name.first} ${friend.name.last} ${friend.email}`.includes(string)
   );
 };
 
 const resetSortButtons = () => {
   document
-    .getElementsByName("sortBy")
+    .querySelectorAll("input[type=radio]")
     .forEach(radio => (radio.checked = false));
+  document.getElementById("bothSexes").checked = true;
 };
 
 const resetSearchInput = () => {
@@ -59,35 +64,47 @@ const resetSearchInput = () => {
 const renderPageWithListeners = originList => {
   let workList = [...originList];
   renderListOfFriends(originList);
-  let buttonSortByNameDesc = document.getElementById("sortByNameDesc");
+  const buttonSortByNameDesc = document.getElementById("sortByNameDesc");
   buttonSortByNameDesc.addEventListener("click", () =>
     //prettier-ignore
     renderListOfFriends(workList.sort((a, b) => desc(a.name.first, b.name.first)))
   );
-  let buttonSortByNameAsc = document.getElementById("sortByNameAsc");
+  const buttonSortByNameAsc = document.getElementById("sortByNameAsc");
   buttonSortByNameAsc.addEventListener("click", () =>
     renderListOfFriends(
       workList.sort((a, b) => asc(a.name.first, b.name.first))
     )
   );
-  let buttonSortByAgeDesc = document.getElementById("sortByAgeDesc");
-  buttonSortByAgeDesc.addEventListener("click", () =>
+  const buttonSortByAgeDesc = document.getElementById("sortByAgeDesc");
+  buttonSortByAgeDesc.addEventListener("change", () =>
     renderListOfFriends(workList.sort((a, b) => desc(a.dob.age, b.dob.age)))
   );
-  let buttonSortByAgeAsc = document.getElementById("sortByAgeAsc");
-  buttonSortByAgeAsc.addEventListener("click", () =>
+  const buttonSortByAgeAsc = document.getElementById("sortByAgeAsc");
+  buttonSortByAgeAsc.addEventListener("change", () =>
     renderListOfFriends(workList.sort((a, b) => asc(a.dob.age, b.dob.age)))
   );
-  let inputSearchByName = document.getElementById("searchByName");
+  const buttonSortByMale = document.getElementById("sortByMale");
+  buttonSortByMale.addEventListener("change", () => {
+    workList = originList.filter(friend => friend.gender === "male");
+    renderListOfFriends(workList);
+  });
+  const buttonSortByFemale = document.getElementById("sortByFemale");
+  buttonSortByFemale.addEventListener("change", () => {
+    workList = originList.filter(friend => friend.gender === "female");
+    renderListOfFriends(workList);
+  });
+
+  const inputSearchByName = document.getElementById("searchByName");
   inputSearchByName.addEventListener("input", event => {
     resetSortButtons();
     workList = filterByString(originList, event.target.value);
     renderListOfFriends(workList);
   });
-  let resetButton = document.getElementById("reset");
+  const resetButton = document.getElementById("reset");
   resetButton.addEventListener("click", () => {
     resetSearchInput();
     resetSortButtons();
+    workList = [...originList];
     renderListOfFriends(originList);
   });
 };
