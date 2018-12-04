@@ -61,79 +61,65 @@ const resetSearchInput = () => {
 };
 
 const renderPageWithListeners = originList => {
+  renderListOfFriends(originList);
   let dataState = {
-    nameAsc: null,
-    nameDesc: null,
-    ageAsc: null,
-    ageDesc: null,
+    sortBy: null,
     sexFilter: null,
     searchFilter: null
   };
-  renderListOfFriends(originList);
 
   const buttonSortByNameDesc = document.getElementById("sort-by-name-desc");
   buttonSortByNameDesc.addEventListener("change", () => {
-    dataState.nameDesc = true;
-    dataState.nameAsc = false;
-    dataState.ageAsc = false;
-    dataState.ageDesc = false;
-    //prettier-ignore
-    renderListOfFriends(processingData(originList, dataState))
+    dataState.sortBy = "nameDesc";
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
 
   const buttonSortByNameAsc = document.getElementById("sort-by-name-asc");
   buttonSortByNameAsc.addEventListener("change", () => {
-    dataState.nameDesc = false;
-    dataState.nameAsc = true;
-    dataState.ageAsc = false;
-    dataState.ageDesc = false;
-    renderListOfFriends(processingData(originList, dataState));
+    dataState.sortBy = "nameAsc";
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
 
   const buttonSortByAgeDesc = document.getElementById("sort-by-age-desc");
   buttonSortByAgeDesc.addEventListener("change", () => {
-    console.log("desc");
-    dataState.nameDesc = false;
-    dataState.nameAsc = false;
-    dataState.ageAsc = false;
-    dataState.ageDesc = true;
-    renderListOfFriends(processingData(originList, dataState));
+    dataState.sortBy = "ageDesc";
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
 
   const buttonSortByAgeAsc = document.getElementById("sort-by-age-asc");
   buttonSortByAgeAsc.addEventListener("change", () => {
-    dataState.nameDesc = false;
-    dataState.nameAsc = false;
-    dataState.ageAsc = true;
-    dataState.ageDesc = false;
-    renderListOfFriends(processingData(originList, dataState));
+    dataState.sortBy = "ageAsc";
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
 
   const buttonSortByMale = document.getElementById("sort-by-male");
   buttonSortByMale.addEventListener("change", () => {
     dataState.sexFilter = "male";
-    renderListOfFriends(processingData(originList, dataState));
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
   const buttonSortByFemale = document.getElementById("sort-by-female");
   buttonSortByFemale.addEventListener("change", () => {
     dataState.sexFilter = "female";
-    renderListOfFriends(processingData(originList, dataState));
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
   const buttonBothSexes = document.getElementById("both-sexes");
   buttonBothSexes.addEventListener("change", () => {
     dataState.sexFilter = null;
-    renderListOfFriends(processingData(originList, dataState));
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
 
   const inputSearchByName = document.getElementById("search-by-name");
   inputSearchByName.addEventListener("input", event => {
     dataState.searchFilter = event.target.value;
-    renderListOfFriends(processingData(originList, dataState));
+    renderListOfFriends(prepareDataToRender(originList, dataState));
   });
   const resetButton = document.getElementById("reset");
   resetButton.addEventListener("click", () => {
     resetSearchInput();
     resetSortButtons();
+    for (k in dataState) {
+      dataState[k] = null;
+    }
     renderListOfFriends(originList);
   });
 };
@@ -144,7 +130,7 @@ getFriends
     renderPageWithListeners(data.results);
   });
 
-const processingData = (data, dataState) => {
+const prepareDataToRender = (data, dataState) => {
   let outData = data.slice();
   if (dataState.searchFilter) {
     outData = outData.filter(({ name, email }) =>
@@ -154,17 +140,20 @@ const processingData = (data, dataState) => {
   if (dataState.sexFilter) {
     outData = outData.filter(({ gender }) => gender === dataState.sexFilter);
   }
-  if (dataState.nameAsc) {
-    outData.sort((a, b) => asc(a.name.first, b.name.first));
+  return dataState.sortBy ? sorter[dataState.sortBy](outData) : outData;
+};
+
+const sorter = {
+  nameAsc: friendsArray => {
+    return friendsArray.sort((a, b) => asc(a.name.first, b.name.first));
+  },
+  nameDesc: friendsArray => {
+    return friendsArray.sort((a, b) => desc(a.name.first, b.name.first));
+  },
+  ageAsc: friendsArray => {
+    return friendsArray.sort((a, b) => asc(a.dob.age, b.dob.age));
+  },
+  ageDesc: friendsArray => {
+    return friendsArray.sort((a, b) => desc(a.dob.age, b.dob.age));
   }
-  if (dataState.nameDesc) {
-    outData.sort((a, b) => desc(a.name.first, b.name.first));
-  }
-  if (dataState.ageAsc) {
-    outData.sort((a, b) => asc(a.dob.age, b.dob.age));
-  }
-  if (dataState.ageDesc) {
-    outData.sort((a, b) => desc(a.dob.age, b.dob.age));
-  }
-  return outData;
 };
