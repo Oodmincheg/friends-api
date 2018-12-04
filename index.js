@@ -49,7 +49,10 @@ const asc = (a, b) => {
   );
 };*/
 
-const resetSortButtons = () => {
+const resetSortButtons = dataState => {
+  for (k in dataState) {
+    dataState[k] = null;
+  }
   document
     .querySelectorAll("input[type=radio]")
     .forEach(radio => (radio.checked = false));
@@ -68,43 +71,30 @@ const renderPageWithListeners = originList => {
     searchFilter: null
   };
 
-  const buttonSortByNameDesc = document.getElementById("sort-by-name-desc");
-  buttonSortByNameDesc.addEventListener("change", () => {
-    dataState.sortBy = "nameDesc";
-    renderListOfFriends(prepareDataToRender(originList, dataState));
-  });
-
-  const buttonSortByNameAsc = document.getElementById("sort-by-name-asc");
-  buttonSortByNameAsc.addEventListener("change", () => {
-    dataState.sortBy = "nameAsc";
-    renderListOfFriends(prepareDataToRender(originList, dataState));
-  });
-
-  const buttonSortByAgeDesc = document.getElementById("sort-by-age-desc");
-  buttonSortByAgeDesc.addEventListener("change", () => {
-    dataState.sortBy = "ageDesc";
-    renderListOfFriends(prepareDataToRender(originList, dataState));
-  });
-
-  const buttonSortByAgeAsc = document.getElementById("sort-by-age-asc");
-  buttonSortByAgeAsc.addEventListener("change", () => {
-    dataState.sortBy = "ageAsc";
-    renderListOfFriends(prepareDataToRender(originList, dataState));
-  });
-
-  const buttonSortByMale = document.getElementById("sort-by-male");
-  buttonSortByMale.addEventListener("change", () => {
-    dataState.sexFilter = "male";
-    renderListOfFriends(prepareDataToRender(originList, dataState));
-  });
-  const buttonSortByFemale = document.getElementById("sort-by-female");
-  buttonSortByFemale.addEventListener("change", () => {
-    dataState.sexFilter = "female";
-    renderListOfFriends(prepareDataToRender(originList, dataState));
-  });
-  const buttonBothSexes = document.getElementById("both-sexes");
-  buttonBothSexes.addEventListener("change", () => {
-    dataState.sexFilter = null;
+  document.getElementById("sortPanel").addEventListener("change", event => {
+    switch (event.target.id) {
+      case "sort-by-name-asc":
+        dataState.sortBy = "nameAsc";
+        break;
+      case "sort-by-name-desc":
+        dataState.sortBy = "nameDesc";
+        break;
+      case "sort-by-age-asc":
+        dataState.sortBy = "ageAsc";
+        break;
+      case "sort-by-age-desc":
+        dataState.sortBy = "ageDesc";
+        break;
+      case "sort-by-male":
+        dataState.sexFilter = "male";
+        break;
+      case "sort-by-female":
+        dataState.sexFilter = "female";
+        break;
+      case "both-sexes":
+        dataState.sexFilter = null;
+        break;
+    }
     renderListOfFriends(prepareDataToRender(originList, dataState));
   });
 
@@ -116,10 +106,7 @@ const renderPageWithListeners = originList => {
   const resetButton = document.getElementById("reset");
   resetButton.addEventListener("click", () => {
     resetSearchInput();
-    resetSortButtons();
-    for (k in dataState) {
-      dataState[k] = null;
-    }
+    resetSortButtons(dataState);
     renderListOfFriends(originList);
   });
 };
